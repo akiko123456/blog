@@ -165,7 +165,7 @@
 
         
         <a href="/blog/2019/09/05/js实现常用排序算法/" class="archive-article-date">
-  	<time datetime="2019-09-05T02:12:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
+  	<time datetime="2019-09-05T06:08:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
 </a>
         
       </header>
@@ -173,7 +173,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>常用的排序算法有冒泡排序、选择排序、插入排序、快速排序、希尔排序、归并排序、堆排序、计数排序等。接下来咱们用js实现前面四种排序算法：</p>
-<h6 id="1-冒泡排序"><a href="#1-冒泡排序" class="headerlink" title="1.冒泡排序"></a>1.冒泡排序</h6><p>基本理念：相邻比较，第一个和第二个比较，大的后移，第二个和第三个比较…这样一轮下来，最大的数在最右侧。重复n-1轮后排序完成。平均时间复杂度为O(n²)</p>
+<h6 id="1-冒泡排序"><a href="#1-冒泡排序" class="headerlink" title="1.冒泡排序"></a>1.冒泡排序</h6><p>基本理念：相邻比较，第一个和第二个比较，大的后移，第二个和第三个比较…这样一轮下来，最大的数在最右侧。重复n-1轮后排序完成。平均时间复杂度为O(n²)<br><img src="/blog/2019/09/05/js实现常用排序算法/bubbleSort.gif" alt="bubbleSort"></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bubbleSort</span>(<span class="params">arr</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> temp;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>;i&lt;arr.length - <span class="number">1</span>;i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>;j&lt;arr.length - i - <span class="number">1</span>;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(arr[j] &gt; arr[j+<span class="number">1</span>])&#123;</span><br><span class="line">                temp = arr[j+<span class="number">1</span>];</span><br><span class="line">                arr[j+<span class="number">1</span>] = arr[j];</span><br><span class="line">                arr[j] = temp;    </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         
           <a class="article-more-a" href="/blog/2019/09/05/js实现常用排序算法/#more">more >></a>
@@ -239,7 +239,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>最近这段时间，前端开发开始逐渐模块化，一些MVC、MVVM等框架比较流行，比如angular、vue、react；这三个框架比较相似的有一点就是数据的双向绑定，视图的更新导致相应数据变化，数据的改变引起视图的变化。像这种魔法的操作是怎么实现的呢？像angular则是采用了‘脏值检测的方式’，数据发生变更后，对于所有的数据和视图的绑定关系进行一次检测，识别是否有数据发生了改变，有变化进行处理，可能进一步引发其他数据的改变，所以这个过程可能会循环几次，一直到不再有数据变化发生后，将变更的数据发送到视图，更新页面展现。如果是手动对 ViewModel 的数据进行变更，为确保变更同步到视图，需要手动触发一次“脏值检测”。VueJS 则使用 ES5 提供的 <font color="red">Object.defineProperty()</font> 方法
+        <p>最近这段时间，前端开发开始逐渐模块化，一些MVC、MVVM等框架比较流行，比如angular、vue、react；这三个框架比较相似的有一点就是数据的双向绑定，视图的更新导致相应数据变化，数据的改变引起视图的变化。像这种魔法的操作是怎么实现的呢？像angular则是采用了‘脏值检测的方式’，数据发生变更后，对于所有的数据和视图的绑定关系进行一次检测，识别是否有数据发生了改变，有变化进行处理，可能进一步引发其他数据的改变，所以这个过程可能会循环几次，一直到不再有数据变化发生后，将变更的数据发送到视图，更新页面展现。如果是手动对 ViewModel 的数据进行变更，为确保变更同步到视图，需要手动触发一次“脏值检测”。VueJS 则使用 ES5 提供的 <font color="red">Object.defineProperty()</font> 方法</p>
         
           <a class="article-more-a" href="/blog/2019/09/02/原生js实现检测对象变化/#more">more >></a>
         
