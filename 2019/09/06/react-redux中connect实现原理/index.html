@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="https://akiko123456.github.io/blog">
-  <title>Archives | tian的博客</title>
+  <title>react-redux中connect实现原理 | tian的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="深度好文">
+  <meta name="description" content="react-redux用于连接react组件及redux，方便开发者使用redux管理状态。其中connect方法是关键，用法如下： 1connect([mapStateToProps], [mapDispatchToProps])(component)  看connect使用方法就知道是高阶组件，接收参数为mapStateToProps和mapDispatchToProps俩个方法，返回的函数接">
 <meta name="keywords" content="前端,js,jquery,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
-<meta property="og:type" content="website">
-<meta property="og:title" content="tian的博客">
-<meta property="og:url" content="https://akiko123456.github.io/blog/archives/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react-redux中connect实现原理">
+<meta property="og:url" content="https://akiko123456.github.io/blog/2019/09/06/react-redux中connect实现原理/index.html">
 <meta property="og:site_name" content="tian的博客">
-<meta property="og:description" content="深度好文">
+<meta property="og:description" content="react-redux用于连接react组件及redux，方便开发者使用redux管理状态。其中connect方法是关键，用法如下： 1connect([mapStateToProps], [mapDispatchToProps])(component)  看connect使用方法就知道是高阶组件，接收参数为mapStateToProps和mapDispatchToProps俩个方法，返回的函数接">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-06T06:46:02.421Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tian的博客">
-<meta name="twitter:description" content="深度好文">
+<meta name="twitter:title" content="react-redux中connect实现原理">
+<meta name="twitter:description" content="react-redux用于连接react组件及redux，方便开发者使用redux管理状态。其中connect方法是关键，用法如下： 1connect([mapStateToProps], [mapDispatchToProps])(component)  看connect使用方法就知道是高阶组件，接收参数为mapStateToProps和mapDispatchToProps俩个方法，返回的函数接">
   
     <link rel="alternative" href="/atom.xml" title="tian的博客" type="application/atom+xml">
   
@@ -150,141 +151,199 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-react-redux中connect实现原理" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      react-redux中connect实现原理
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/blog/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2019/09/06/react-redux中connect实现原理/" class="archive-article-date">
+
+        
+        <a href="/blog/2019/09/06/react-redux中connect实现原理/" class="archive-article-date">
   	<time datetime="2019-09-06T05:55:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-06</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2019/09/06/react-redux中connect实现原理/">react-redux中connect实现原理</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>react-redux用于连接react组件及redux，方便开发者使用redux<br>管理状态。其中connect方法是关键，用法如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">connect([mapStateToProps], [mapDispatchToProps])(component)</span><br></pre></td></tr></table></figure>
 
-        <div class="article-info info-on-right">
-          
-          
+<p>看connect使用方法就知道是高阶组件，接收参数为mapStateToProps和mapDispatchToProps俩个方法，返回的函数接收参数是组件，从而返回一个新的组件。<br>那么为什么会有react-redux这个库。如果我们想在组件中使用redux，可能会这样</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// store.js</span></span><br><span class="line"><span class="keyword">const</span> reducer = <span class="function">(<span class="params">state = <span class="number">0</span>, action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'INCREMENT'</span>: <span class="keyword">return</span> state + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'DECREMENT'</span>: <span class="keyword">return</span> state - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">default</span>: <span class="keyword">return</span> state;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">var</span> store = createStore(reducer);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Counter.jsx</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">'@/store'</span> <span class="comment">// 引入store</span></span><br><span class="line"><span class="keyword">const</span> Counter = <span class="function">(<span class="params">&#123; value, onIncrement, onDecrement &#125;</span>) =&gt;</span> (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">  &lt;h1&gt;&#123;value&#125;&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">  &lt;button onClick=&#123;onIncrement&#125;&gt;+&lt;/</span>button&gt;</span><br><span class="line">  &lt;button onClick=&#123;onDecrement&#125;&gt;-&lt;/button&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">);</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">const render = () =&gt; &#123;</span></span><br><span class="line"><span class="regexp">  ReactDOM.render(</span></span><br><span class="line"><span class="regexp">    &lt;Counter</span></span><br><span class="line"><span class="regexp">      value=&#123;store.getState()&#125;</span></span><br><span class="line"><span class="regexp">      onIncrement=&#123;() =&gt; store.dispatch(&#123;type: 'INCREMENT'&#125;)&#125;</span></span><br><span class="line"><span class="regexp">      onDecrement=&#123;() =&gt; store.dispatch(&#123;type: 'DECREMENT'&#125;)&#125;</span></span><br><span class="line"><span class="regexp">    /</span>&gt;,</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>)</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">render();</span><br><span class="line">store.subscribe(render);<span class="comment">//state变化执行render重渲染</span></span><br></pre></td></tr></table></figure>
 
+<a id="more"></a>
+<p>如果每一个组件都有用到store，那工作量无疑是比较大的。因此我们可以借助react的context,使用context可以让任意子组件都能获取到store</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Provider.jsx</span><br><span class="line">import React &#123; createContext,Component &#125; from &apos;react&apos;;</span><br><span class="line">import store from &apos;@/store&apos;</span><br><span class="line">const storeContext = createContext(store);</span><br><span class="line">class Provider extends Component &#123;</span><br><span class="line">    constructor(props)&#123;</span><br><span class="line">      super(props)</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    render() &#123;</span><br><span class="line">      return (</span><br><span class="line">        &lt;storeContext.Provider value=&#123;this.props.store&#125;&gt;</span><br><span class="line">            &#123;React.Children.map(this.props.children, function (child) &#123;</span><br><span class="line">                 return child;</span><br><span class="line">            &#125;)&#125;</span><br><span class="line">        &lt;/storeContext.Provider&gt;</span><br><span class="line">      );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">export default Provider</span><br></pre></td></tr></table></figure>
+
+<p>使用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">'./store'</span></span><br><span class="line">&lt;Provider store=&#123;store&#125;&gt;</span><br><span class="line">   &lt;App /&gt;</span><br><span class="line"> &lt;<span class="regexp">/Provider&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这样App下面所有子组件都可以拿到store。那么我们现在开始进入正题，编写connect方法。首先是拿到provider组件提供的store</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">connect.jsx</span><br><span class="line">var connect = (mapStatetoProps,mapActionstoProps)=&gt;(WrapperComponent)=&gt;&#123;</span><br><span class="line">    return class Connect extends Component &#123;</span><br><span class="line">    	static contextType = storeContext; // provide定义的context对象</span><br><span class="line">        constructor(props)&#123;</span><br><span class="line">            super();</span><br><span class="line">        &#125;</span><br><span class="line">        componentWillMount()&#123;</span><br><span class="line">            const store  = this.context;// 这样就拿到了store</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>既然拿到store了就监听state变化更改视图</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">componentWillMount()&#123;</span><br><span class="line">   <span class="keyword">const</span> store  = <span class="keyword">this</span>.context;</span><br><span class="line">   store.subscribe(<span class="keyword">this</span>._updateProps)</span><br><span class="line">   <span class="keyword">this</span>._updateProps() <span class="comment">// 初始化</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么这个_updateProps是做什么呢，当然是处理mapStatetoProps和mapActionstoProps</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">_updateProps= <span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> store  = <span class="keyword">this</span>.context;</span><br><span class="line">  <span class="comment">// 传入state和props</span></span><br><span class="line">  <span class="keyword">var</span> stateProps = mapStatetoProps ? mapStatetoProps(store.getState(),<span class="keyword">this</span>.props) : &#123;&#125;;</span><br><span class="line">  <span class="comment">// 传入dispatch和props</span></span><br><span class="line">  <span class="keyword">var</span> actionProps = mapActionstoProps ?mapActionstoProps(store.dispatch,<span class="keyword">this</span>.props) : &#123;&#125;; </span><br><span class="line">  <span class="comment">//整合props，传给接收的组件</span></span><br><span class="line">  <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">       allProps:&#123;</span><br><span class="line">            ...stateProps,</span><br><span class="line">            ...actionProps,</span><br><span class="line">            ...this.props</span><br><span class="line">           &#125;</span><br><span class="line">         &#125;)</span><br><span class="line"> &#125;</span><br><span class="line"> render() &#123;</span><br><span class="line">     <span class="keyword">return</span> (</span><br><span class="line">        &lt;div className=<span class="string">"Mid"</span>&gt;</span><br><span class="line">         	&lt;WrapperComponent &#123;...this.state.allProps&#125;/&gt;</span><br><span class="line">         &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        );</span></span><br><span class="line"><span class="regexp"> &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">@connect(<span class="function">(<span class="params">state,ownprops</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    count:state.count</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,(dispatch)=&gt;&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    add:<span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">      dispatch(add(name))</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Child</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props)&#123;</span><br><span class="line">    <span class="keyword">super</span>(props)</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div className=<span class="string">"Child"</span>&gt;</span><br><span class="line">        &lt;p&gt;&#123;<span class="keyword">this</span>.props.count&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">        &lt;div onClick=&#123;()=&gt;this.props.add(1)&#125;&gt;增加&lt;/</span>div&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/blog/assets/img/apliy.png">
+                      <span class="reward-type">支付宝</span>
+                    </div>
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/blog/assets/img/wx.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=https://akiko123456.github.io/blog/2019/09/06/react-redux中connect实现原理/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2019/09/05/js实现常用排序算法/" class="archive-article-date">
-  	<time datetime="2019-09-05T06:08:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/blog/2019/09/05/js实现常用排序算法/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">js实现常用排序算法</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2019/09/05/js实现常用排序算法/">js实现常用排序算法</a>
-    </h1>
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "https://akiko123456.github.io/blog/blog/2019/09/06/react-redux中connect实现原理/", 
+    sourceId: "react-redux中connect实现原理",
+    productKey: "true",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="//img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2019/09/02/原生js实现检测对象变化/" class="archive-article-date">
-  	<time datetime="2019-09-02T03:37:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2019/09/02/原生js实现检测对象变化/">原生js实现检测对象变化</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/blog/2019/08/30/测试/" class="archive-article-date">
-  	<time datetime="2019-08-30T09:07:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/2019/08/30/测试/">测试</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -307,8 +366,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
