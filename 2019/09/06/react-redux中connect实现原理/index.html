@@ -9,14 +9,14 @@
   <title>react-redux中connect实现原理 | tian的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="react-redux用于连接react组件及redux，方便开发者使用redux管理状态。其中connect方法是关键，用法如下： 1connect([mapStateToProps], [mapDispatchToProps])(component)  看connect使用方法就知道是高阶组件，接收参数为mapStateToProps和mapDispatchToProps俩个方法，返回的函数接">
-<meta name="keywords" content="前端,js,jquery,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
+<meta name="keywords" content="react,js">
 <meta property="og:type" content="article">
 <meta property="og:title" content="react-redux中connect实现原理">
 <meta property="og:url" content="https://akiko123456.github.io/blog/2019/09/06/react-redux中connect实现原理/index.html">
 <meta property="og:site_name" content="tian的博客">
 <meta property="og:description" content="react-redux用于连接react组件及redux，方便开发者使用redux管理状态。其中connect方法是关键，用法如下： 1connect([mapStateToProps], [mapDispatchToProps])(component)  看connect使用方法就知道是高阶组件，接收参数为mapStateToProps和mapDispatchToProps俩个方法，返回的函数接">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-06T06:46:02.421Z">
+<meta property="og:updated_time" content="2019-09-10T07:41:51.493Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="react-redux中connect实现原理">
 <meta name="twitter:description" content="react-redux用于连接react组件及redux，方便开发者使用redux管理状态。其中connect方法是关键，用法如下： 1connect([mapStateToProps], [mapDispatchToProps])(component)  看connect使用方法就知道是高阶组件，接收参数为mapStateToProps和mapDispatchToProps俩个方法，返回的函数接">
@@ -164,7 +164,7 @@
 
         
         <a href="/blog/2019/09/06/react-redux中connect实现原理/" class="archive-article-date">
-  	<time datetime="2019-09-06T05:55:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-06</time>
+  	<time datetime="2019-09-06T05:55:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-06</time>
 </a>
         
       </header>
@@ -233,6 +233,21 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">react</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -296,6 +311,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/blog/2019/09/10/dom基础篇/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          dom基础篇
+        
+      </div>
+    </a>
   
   
     <a href="/blog/2019/09/05/js实现常用排序算法/" id="article-nav-older" class="article-nav-link-wrap">
@@ -428,7 +452,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">react</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">js</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">dom</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
             
             <div class="clearfix"></div>

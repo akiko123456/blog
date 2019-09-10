@@ -152,6 +152,150 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-IE和标准DOM事件模型之间存在的差别" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2019/09/10/IE和标准DOM事件模型之间存在的差别/">IE和标准DOM事件模型之间存在的差别</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2019/09/10/IE和标准DOM事件模型之间存在的差别/" class="archive-article-date">
+  	<time datetime="2019-09-10T07:47:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>标准DOM事件模型：<font style="color:#e45649">事件冒泡</font>、<font style="color:#e45649">事件捕获</font>。<br><br>事件冒泡: 事件从事件目标(target)开始，往上冒泡直到页面的最上一级标签(document)。<br><br>事件捕获: 事件从最上一级标签开始往下查找，直到捕获到事件目标(target)。<br><font style="color:#e45649">IE的事件模型中没有捕获阶段。</font></p>
+<h5 id="使用事件"><a href="#使用事件" class="headerlink" title="使用事件"></a>使用事件</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;…&#125;</span><br><span class="line">obj.onmouseover=<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;…&#125;</span><br><span class="line">obj.onclick=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;…&#125;</span><br></pre></td></tr></table></figure>
+
+<p>缺点:只能默认冒泡，不能使用捕获，并且同个元素多个相同事件会被覆盖。</p>
+        
+          <a class="article-more-a" href="/blog/2019/09/10/IE和标准DOM事件模型之间存在的差别/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2019/09/10/IE和标准DOM事件模型之间存在的差别/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-dom基础篇" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2019/09/10/dom基础篇/">dom基础篇</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2019/09/10/dom基础篇/" class="archive-article-date">
+  	<time datetime="2019-09-10T06:56:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="1-两个节点之间可能存在哪些关系"><a href="#1-两个节点之间可能存在哪些关系" class="headerlink" title="1.两个节点之间可能存在哪些关系 ?"></a>1.两个节点之间可能存在哪些关系 ?</h5><p>  <font style="color:#2daebf">childNodes</font>: 获取当前节点的所有子节点（包括元素节点和文本节点），返回类数组。<br><br>  <font style="color:#2daebf">children</font>: 获取当前节点的所有元素子节点（不包含文本节点），返回类数组。<br><br>  <font style="color:#2daebf">parentNode</font>: 获取当前节点的父节点。<br><br>  <font style="color:#2daebf">firstChild</font>:  获取第一个子节点，包括回车等文本节点。<br><br>  <font style="color:#2daebf">firstElementChild</font>:  获取第一个元素节点。 不含文本节点。<br><br>  <font style="color:#2daebf">lastChild</font>:  获取最后一个子节点，包括回车等文本节点。<br><br>  <font style="color:#2daebf">lastElementChild</font>:  获取最后一个元素节点。 不含文本节点。<br><br>  <font style="color:#2daebf">previousSibling</font>:  获取当前节点的前一个兄弟节点，包括文本节点。</p>
+        
+          <a class="article-more-a" href="/blog/2019/09/10/dom基础篇/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">dom</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2019/09/10/dom基础篇/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-react-redux中connect实现原理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -165,7 +309,7 @@
 
         
         <a href="/blog/2019/09/06/react-redux中connect实现原理/" class="archive-article-date">
-  	<time datetime="2019-09-06T05:55:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-06</time>
+  	<time datetime="2019-09-06T05:55:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-06</time>
 </a>
         
       </header>
@@ -187,6 +331,21 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">react</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -234,7 +393,7 @@
 
         
         <a href="/blog/2019/09/05/js实现常用排序算法/" class="archive-article-date">
-  	<time datetime="2019-09-05T06:08:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
+  	<time datetime="2019-09-05T06:08:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-05</time>
 </a>
         
       </header>
@@ -254,6 +413,21 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -301,7 +475,7 @@
 
         
         <a href="/blog/2019/09/02/原生js实现检测对象变化/" class="archive-article-date">
-  	<time datetime="2019-09-02T03:37:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-02</time>
+  	<time datetime="2019-09-02T03:37:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-09-02</time>
 </a>
         
       </header>
@@ -319,74 +493,16 @@
     <div class="article-info article-info-index">
       
       
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/09/02/原生js实现检测对象变化/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-测试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2019/08/30/测试/">测试</a>
-    </h1>
-  
-
-        
-        <a href="/blog/2019/08/30/测试/" class="archive-article-date">
-  	<time datetime="2019-08-30T09:07:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-08-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div align="center"><img src="http://litten.me/ins/BUqBlIWFF_f.jpg" width="80%" height="auto"></div>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
         		</li>
       		
 		</ul>
@@ -396,7 +512,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/blog/2019/08/30/测试/">展开全文 >></a>
+          <a class="article-more-a" href="/blog/2019/09/02/原生js实现检测对象变化/">展开全文 >></a>
         </p>
       
 
@@ -511,7 +627,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">react</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">js</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">dom</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
             
             <div class="clearfix"></div>
