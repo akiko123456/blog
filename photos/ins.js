@@ -124,7 +124,7 @@
 
           liTmpl += '<figure class="thumb" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">\
                 <a href="' + src + '" itemprop="contentUrl" data-size="640x640" data-type="' + type + '" data-target="' + target + '">\
-                  <img class="reward-img" data-type="' + type + '" data-src="' + minSrc + '" src="/blog/photos/assets/loading.gif" itemprop="thumbnail" onload="lzld(this)">\
+                  <img class="reward-img" data-type="' + type + '" data-src="' + minSrc + '" src="/blog/blog/photos/ins/photos/assets/loading.gif" itemprop="thumbnail" onload="lzld(this)">\
                 </a>\
                 <figcaption style="display:none" itemprop="caption description">' + data.text[i] + '</figcaption>\
             </figure>';
@@ -217,7 +217,6 @@
       var lazyAttrs = ['data-src'];
 
       global.lzld = lazyload();
-
       // Provide libs using getAttribute early to get the good src
       // and not the fake data-src
       replaceGetAttribute('Image');
